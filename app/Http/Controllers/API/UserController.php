@@ -70,7 +70,7 @@ class UserController extends BaseController
         $perPage = $request->input('per_page', config('pagination.per_page'));
 
         $query = QueryBuilder::for($model)
-            ->allowedIncludes('program.students');;
+            ->allowedIncludes('program.students','role');;
 
         $rows = $paginate
             ? $query->paginate($perPage)->appends($request->query())
