@@ -1,0 +1,425 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Swagger with Laravel",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authenticate"
+                ],
+                "summary": "Authenticate user and generate token, after get token click in chain symbol to register your token in each request",
+                "operationId": "4596fcabf8d77d24d6f88eb1a61ec784",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User's email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "profesor@mail.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User's password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/programs": {
+            "get": {
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Get list of programs, you can retrieve for your dataTable componente or raw format as well",
+                "description": "The filters are not required, feel free to play with filters",
+                "operationId": "ab6a68d80e96f95d4bb0d34ff0332402",
+                "parameters": [
+                    {
+                        "name": "paginate",
+                        "in": "query",
+                        "description": "Indicate with 'false' or 'true' if you prefere your data paginated",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "false"
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Indicate number of item per page only apply for paginate version",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/programs/{program}": {
+            "get": {
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Get specific program resource",
+                "operationId": "2016efb820989f6b0370b0e490120954",
+                "parameters": [
+                    {
+                        "name": "program",
+                        "in": "path",
+                        "description": "Numeric ID of the program to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get list of user, you can retrieve for your dataTable componente or raw format as well",
+                "description": "The filters are not required, feel free to play with filters",
+                "operationId": "d7a57f4d7de18fb0f92501172472c9b6",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "Get users by role (administrador or profesor or empty)",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "profesor"
+                    },
+                    {
+                        "name": "include",
+                        "in": "query",
+                        "description": "Get relationship of your resource: program.students or just program",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "program.students"
+                    },
+                    {
+                        "name": "paginate",
+                        "in": "query",
+                        "description": "Indicate with 'false' or 'true' if you prefere your data paginated",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "true"
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Indicate number of item per page only apply for paginate version",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Store new user account and assing role",
+                "operationId": "9fea6f2adcb69614c521a7733358382d",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "Role of user (administrador or profesor)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "profesor"
+                    },
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "Username for the new account",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name for the new account",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email for the new account",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "program_id",
+                        "in": "query",
+                        "description": "1 = Arte, 2 = Canto, 3 = Baile",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password for the new account",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{user}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get specific user resource",
+                "description": "You can use include to specific what relationship you need ",
+                "operationId": "8ef94a31920758a2ea8c4a11c4a85c73",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Numeric ID of the user to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "include",
+                        "in": "query",
+                        "description": "Get relationship of your resource: 'program.students' or just 'program'",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "program.students"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete user account",
+                "operationId": "d2769c9ccb9342ab54329ddb86aa438c",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Numeric ID of the user to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update user account",
+                "operationId": "049ff99b04d4a5c8617743ec01195cd1",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Numeric ID of the user to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "Username for the account to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name for the account  to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email for the account to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password for the account to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
